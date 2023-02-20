@@ -3,6 +3,7 @@
 
 #include "BeatInfo.h"
 #include "effect_movingdot.h"
+#include "effect_fullcolor.h"
 #include "effect_blink_rainbow.h"
 #include "effect_movingdot_simple.h"
 #include "effect_beating_rainbow_stripes.h"
@@ -44,6 +45,7 @@ private:
         EFFECT_ENTRY(EffectBouncingComet),
         EFFECT_ENTRY(EffectDancingSpotlights),
         EFFECT_ENTRY(EffectSmashingDots),
+        EFFECT_ENTRY(EffectFullcolor),
     };
     int availableEffects(){
         return sizeof(effects)/sizeof(*effects);

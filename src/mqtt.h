@@ -9,6 +9,8 @@
 
 #include <BeatInfo.h>
 
+#include "effect_fullcolor.h"
+
 extern BeatInfo beatInfo;
 
 WiFiClient espClient;
@@ -22,7 +24,7 @@ void reconnect();
 
 void reconnect()
 {
-  if(!client.connected())
+  if (!client.connected())
   {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
@@ -48,6 +50,12 @@ void reconnect()
 
 void callback(char *topic, byte *payload, unsigned int length)
 {
+  String messageTemp;
+
+  for (unsigned int i = 0; i < length; i++)
+  {
+    messageTemp += (char)payload[i];
+  }
   if (strcmp(topic, "projektiontv/stream/dj/songinfo/bpm") == 0)
   {
     DynamicJsonDocument doc(256);
@@ -56,6 +64,20 @@ void callback(char *topic, byte *payload, unsigned int length)
     double bpm = doc["bpm"];
     Serial.printf("MQTT Received BPM: %f\n", bpm);
     beatInfo.setBPM(bpm);
+  }
+  if (strcmp(topic, "stream/ledstripes/effekt") == 0)
+  {
+    // effectsRunner.setEffect((int)payload);
+  }
+
+  if (strcmp(topic, "stream/uhr/farbe/seconds") == 0)
+  {
+    char str_array[messageTemp.length()];
+    messageTemp.toCharArray(str_array, messageTemp.length());
+
+    Serial.println(strtol(str_array, NULL, 16));
+
+    EffectFullcolor.setColor(strtol(str_array, NULL, 16));
   }
 }
 

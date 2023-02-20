@@ -56,10 +56,10 @@ void loop()
   e131sync.loop();
 #endif
 
-  EVERY_N_SECONDS(30)
+ /*  EVERY_N_SECONDS(30)
   {
     effectsRunner.nextEffect();
-  };
+  }; */
 
   // debug only :)
   // EVERY_N_SECONDS(10)
