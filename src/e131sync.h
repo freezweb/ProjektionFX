@@ -38,16 +38,16 @@ public:
             
             uint16_t MAX_PER_UNIVERSE = 170;
 
-            // Serial.printf("looping e131 - %d %d\n", ceil(NUM_LEDS / MAX_PER_UNIVERSE), NUM_LEDS);
+            // Serial.printf("looping e131 - %d %d\r\n", ceil(NUM_LEDS / MAX_PER_UNIVERSE), NUM_LEDS);
 
             for (int universe = 0; universe <= ceil(NUM_LEDS / MAX_PER_UNIVERSE); universe++)
             {
-                // Serial.printf("Sending universe %d\n", universe + universeTX);
+                // Serial.printf("Sending universe %d\r\n", universe + universeTX);
 
                 for (int i = 0; i < MAX_PER_UNIVERSE; i++)
                 {
                     int ledPos = i + (MAX_PER_UNIVERSE * (universe));
-                    // Serial.printf(" - LED %d\n", ledPos);
+                    // Serial.printf(" - LED %d\r\n", ledPos);
                     if (ledPos < NUM_LEDS)
                     {
                         CRGB led = leds[ledPos];
@@ -63,10 +63,10 @@ public:
             // while (ledsLeft > 0)
             // {
             //     // e131.clearSendBuffer();
-            //     Serial.printf("Sending %d - start %d - universe %d\n", min(MAX_PER_UNIVERSE, ledsLeft), universesSent * MAX_PER_UNIVERSE, universe);
+            //     Serial.printf("Sending %d - start %d - universe %d\r\n", min(MAX_PER_UNIVERSE, ledsLeft), universesSent * MAX_PER_UNIVERSE, universe);
             //     for (uint16_t i = 0; i < 170; i++)
             //     {
-            //         Serial.printf("-> setRGB(%d)\n", i * 3);
+            //         Serial.printf("-> setRGB(%d)\r\n", i * 3);
             //         if (i < min(MAX_PER_UNIVERSE, ledsLeft))
             //         {
             //             CRGB led = leds[i + (universesSent * MAX_PER_UNIVERSE)];

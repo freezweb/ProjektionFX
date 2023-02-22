@@ -9,6 +9,7 @@
 
 #include <BeatInfo.h>
 
+#include "effect.h"
 #include "effect_fullcolor.h"
 
 extern BeatInfo beatInfo;
@@ -28,7 +29,7 @@ void reconnect()
   {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
-    String clientId = "PROJEKTIONFX-";
+    String clientId = "PANDORIALED-";
     clientId += String(random(0xffff), HEX);
     // Attempt to connect
 
@@ -36,6 +37,8 @@ void reconnect()
     {
       Serial.println("connected");
       client.subscribe("projektiontv/stream/dj/songinfo/bpm");
+      client.subscribe("stream/uhr/farbe/seconds");
+      client.subscribe("stream/ledstripes/effekt");
     }
     else
     {
@@ -77,7 +80,7 @@ void callback(char *topic, byte *payload, unsigned int length)
 
     Serial.println(strtol(str_array, NULL, 16));
 
-    EffectFullcolor.setColor(strtol(str_array, NULL, 16));
+    EffectFullcolor::setStreamColor(strtol(str_array, NULL, 16));
   }
 }
 

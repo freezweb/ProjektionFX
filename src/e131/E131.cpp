@@ -161,48 +161,48 @@ void E131::dumpPacket(int packetNo)
     if (packetNo == 0)
     {
         dmpbuff = packet;
-        Serial.print("\n --------------------------------- packet \n");
+        Serial.print("\r\n --------------------------------- packet \r\n");
     }
     else
     {
         dmpbuff = pwbuff;
-        Serial.print("\n --------------------------------- pwbuff \n");
+        Serial.print("\r\n --------------------------------- pwbuff \r\n");
     }
 
-    Serial.print("E1.31 Root Layer\n");
-    printf(" Preamble Size .......... %04x\n", swapf_uint16(dmpbuff->preamble_size));  // SWAP // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
-    printf(" Post-amble Size ........ %04x\n", swapf_uint16(dmpbuff->postamble_size)); // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
-    printf(" ACN Packet Identifier .. %s\n", dmpbuff->acn_id);                         // uint8_t = 1 bytes = [0-255] or [0x00-0xFF] = unsigned char
-    printf(" Flags & Length ......... %04x\n", swapf_uint16(dmpbuff->root_flength));   // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
-    printf(" Layer Vector ........... %08x\n", swapf_uint32(dmpbuff->root_vector));    // uint32_t = 4 bytes = unsigned long
+    Serial.print("E1.31 Root Layer\r\n");
+    printf(" Preamble Size .......... %04x\r\n", swapf_uint16(dmpbuff->preamble_size));  // SWAP // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
+    printf(" Post-amble Size ........ %04x\r\n", swapf_uint16(dmpbuff->postamble_size)); // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
+    printf(" ACN Packet Identifier .. %s\r\n", dmpbuff->acn_id);                         // uint8_t = 1 bytes = [0-255] or [0x00-0xFF] = unsigned char
+    printf(" Flags & Length ......... %04x\r\n", swapf_uint16(dmpbuff->root_flength));   // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
+    printf(" Layer Vector ........... %08x\r\n", swapf_uint32(dmpbuff->root_vector));    // uint32_t = 4 bytes = unsigned long
     printf(" Component Identifier ... ");
     for (size_t pos = 0, total = sizeof dmpbuff->cid; pos < total; pos++)
         printf("%02x", dmpbuff->cid[pos]);
-    printf("\n");
+    printf("\r\n");
 
-    Serial.print("E1.31 Framing Layer\n");
-    printf(" Flags & Length ......... %04x\n", swapf_uint16(dmpbuff->frame_flength));                                  // uint16_t
-    printf(" Layer Vector ........... %08x\n", swapf_uint32(dmpbuff->frame_vector));                                   // uint32_t
-    printf(" Source Name ............ %s\n", dmpbuff->source_name);                                                    // uint8_t
-    printf(" Packet Priority ........ %02x = %u\n", dmpbuff->priority, dmpbuff->priority);                             // ok // uint8_t
-    printf(" Reserved ............... %04x\n", swapf_uint16(dmpbuff->reserved));                                       // uint16_t
-    printf(" Sequence Number ........ %02x\n", dmpbuff->sequence_number);                                              // ok // uint8_t
-    printf(" Options Flags .......... %02x\n", dmpbuff->options);                                                      // uint8_t
-    printf(" DMX Universe Number .... %04x = %u\n", swapf_uint16(dmpbuff->universe), swapf_uint16(dmpbuff->universe)); // SWAP // uint16_t
+    Serial.print("E1.31 Framing Layer\r\n");
+    printf(" Flags & Length ......... %04x\r\n", swapf_uint16(dmpbuff->frame_flength));                                  // uint16_t
+    printf(" Layer Vector ........... %08x\r\n", swapf_uint32(dmpbuff->frame_vector));                                   // uint32_t
+    printf(" Source Name ............ %s\r\n", dmpbuff->source_name);                                                    // uint8_t
+    printf(" Packet Priority ........ %02x = %u\r\n", dmpbuff->priority, dmpbuff->priority);                             // ok // uint8_t
+    printf(" Reserved ............... %04x\r\n", swapf_uint16(dmpbuff->reserved));                                       // uint16_t
+    printf(" Sequence Number ........ %02x\r\n", dmpbuff->sequence_number);                                              // ok // uint8_t
+    printf(" Options Flags .......... %02x\r\n", dmpbuff->options);                                                      // uint8_t
+    printf(" DMX Universe Number .... %04x = %u\r\n", swapf_uint16(dmpbuff->universe), swapf_uint16(dmpbuff->universe)); // SWAP // uint16_t
 
-    Serial.print("E1.31 Device Management Protocol (DMP) Layer\n");
-    printf(" Flags & Length ......... %04x\n", swapf_uint16(dmpbuff->dmp_flength));          // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
-    printf(" Layer Vector ........... %02x\n", dmpbuff->dmp_vector);                         // uint8_t = 1 bytes = [0-255] or [0x00-0xFF] = unsigned char
-    printf(" Address & Data Type .... %02x\n", dmpbuff->type);                               // uint8_t = 1 bytes = [0-255] or [0x00-0xFF] = unsigned char
-    printf(" First Address .......... %04x\n", swapf_uint16(dmpbuff->first_address));        // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
-    printf(" Address Increment ...... %04x\n", swapf_uint16(dmpbuff->address_increment));    // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
-    printf(" Property Value Count ... %04x\n", swapf_uint16(dmpbuff->property_value_count)); // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
+    Serial.print("E1.31 Device Management Protocol (DMP) Layer\r\n");
+    printf(" Flags & Length ......... %04x\r\n", swapf_uint16(dmpbuff->dmp_flength));          // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
+    printf(" Layer Vector ........... %02x\r\n", dmpbuff->dmp_vector);                         // uint8_t = 1 bytes = [0-255] or [0x00-0xFF] = unsigned char
+    printf(" Address & Data Type .... %02x\r\n", dmpbuff->type);                               // uint8_t = 1 bytes = [0-255] or [0x00-0xFF] = unsigned char
+    printf(" First Address .......... %04x\r\n", swapf_uint16(dmpbuff->first_address));        // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
+    printf(" Address Increment ...... %04x\r\n", swapf_uint16(dmpbuff->address_increment));    // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
+    printf(" Property Value Count ... %04x\r\n", swapf_uint16(dmpbuff->property_value_count)); // uint16_t = 2 bytes = [0-65535] or [0x0000-0xFFFF] = unsigned int
 
-    Serial.print("E1.31 DMP Property Values\n ");
+    Serial.print("E1.31 DMP Property Values\r\n ");
     for (size_t pos = 0, total = (dmpbuff->property_value_count); pos < total; pos++)
         printf(" %02x", dmpbuff->property_values[pos]);
 
-    Serial.print("\n");
+    Serial.print("\r\n");
 }
 
 void E131::stopUdp(void)
@@ -234,9 +234,9 @@ void E131::connectMulticast(uint16_t universe)
         Serial.print(F(" / Multicast address: "));
         Serial.print(address);
         if (retval > 0)
-            Serial.print(F(" udp ok\n"));
+            Serial.print(F(" udp ok\r\n"));
         else
-            Serial.print(F(" ERROR: udp no sockets available\n"));
+            Serial.print(F(" ERROR: udp no sockets available\r\n"));
     }
 }
 
@@ -258,9 +258,9 @@ void E131::initMulticast(uint16_t universe)
         Serial.print(F("- Multicast address: "));
         Serial.print(address);
         if (retval > 0)
-            Serial.print(F(" udp ok\n"));
+            Serial.print(F(" udp ok\r\n"));
         else
-            Serial.print(F(" ERROR: udp no sockets available\n"));
+            Serial.print(F(" ERROR: udp no sockets available\r\n"));
     }
 }
 

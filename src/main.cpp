@@ -8,11 +8,11 @@
 #include "BeatInfo.h"
 #include "settings.h"
 
-#include "mqtt.h"
+
 #include "configuration.h"
 
 #include "effects.h"
-
+#include "mqtt.h"
 // #include "artnet.h"
 
 #include "e131sync.h"
@@ -26,7 +26,7 @@ void setup()
 
   Serial.begin(115200);
 
-  config.setupWifiPortal("ProjektionFX");
+  config.setupWifiPortal("PandoriaLED");
 
   ArduinoOTA.begin();
 

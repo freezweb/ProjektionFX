@@ -57,7 +57,7 @@ public:
         }
         else
         {
-            Serial.printf("connected, IP: %s\n", WiFi.localIP().toString().c_str());
+            Serial.printf("connected, IP: %s\r\n", WiFi.localIP().toString().c_str());
         } 
 
 
@@ -92,7 +92,7 @@ public:
     {
         if(!WiFi.isConnected())
         {
-            Serial.print("\nAttempting WiFi reconnect");
+            Serial.print("\r\nAttempting WiFi reconnect");
             WiFi.begin();
             static uint8_t tries = 120;
 
@@ -100,7 +100,7 @@ public:
             {
                 if(!tries--)
                 {
-                    Serial.println("\nfailed! -> Reset");
+                    Serial.println("\r\nfailed! -> Reset");
                     delay(2500);
                     ESP.restart();
                 }
@@ -184,7 +184,7 @@ private:
                     if (json.success())
                     {
 #endif
-                        // Serial.println("\nparsed json");
+                        // Serial.println("\r\nparsed json");
                         String host = json["mqtt_host"];
                         String user = json["mqtt_user"];
                         String password = json["mqtt_password"];
@@ -193,10 +193,10 @@ private:
                         mqttUser = user;
                         mqttPassword = password;
 
-                        Serial.printf("Config Restored\n");
-                        Serial.printf(" mqtt_host:\t %s\n", mqttHost.c_str());
-                        Serial.printf(" mqtt_user:\t %s\n", mqttUser.c_str());
-                        Serial.printf(" mqtt_password:\t <HIDDEN>\n");
+                        Serial.printf("Config Restored\r\n");
+                        Serial.printf(" mqtt_host:\t %s\r\n", mqttHost.c_str());
+                        Serial.printf(" mqtt_user:\t %s\r\n", mqttUser.c_str());
+                        Serial.printf(" mqtt_password:\t <HIDDEN>\r\n");
                     }
                     else
                     {

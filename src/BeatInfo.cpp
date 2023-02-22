@@ -58,5 +58,5 @@ void BeatInfo::changeBPM()
     //     break;
     // }
 
-    Serial.printf("BPM Changed to %f\n", this->bpm);
+    Serial.printf("BPM Changed to %f\r\n", this->bpm);
 }
