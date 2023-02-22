@@ -1,24 +1,13 @@
 #include <effect.h>
+#include "MQTTStreamFarben.h"
 
 #if !defined(EFFECT_FULLCOLOR_H__)
 #define EFFECT_FULLCOLOR_H__
-
+extern MQTTStreamFarben StreamFarbe;
 class EffectFullcolor : public Effect
 {
 
 public:
-    //static CRGB StreamFarbe;
-    static void setStreamColor(CRGB color)
-    {
-        //StreamFarbe = color;
-    }
-
-    static CRGB getStreamColor()
-    {
-        //return StreamFarbe;
-        return CRGB::Red;
-    }
-
     static void run(BeatInfo &beatInfo, CRGBSet leds, int numLeds)
     {
 
@@ -32,17 +21,17 @@ public:
         //                   255,
          //                  160);
 
-        int length = 50;
+        int length = numLeds;
         int ledPos = map(beatInfo.animationFrame(1), 0, 999, 0, numLeds - 1);
 
         for (int i = 0; i < length; i++)
         {
             int p = (ledPos + i) % numLeds;
-            Serial.printf("LED %s(%d)\r\n", "red", p);
+            //Serial.printf("LED %s(%d)\r\n", "red", p);
 
-            leds[p] = getStreamColor();
-            leds[p] = CRGB::Red;
-             leds[p].fadeToBlackBy((length - i) * (255. / length));
+            leds[p] = StreamFarbe.getStreamColor();
+            //leds[p] = CRGB::Red;
+            //leds[p].fadeToBlackBy((length - i) * (255. / length));
         }
 
         // second dot:

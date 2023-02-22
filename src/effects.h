@@ -54,7 +54,7 @@ private:
 public:
     void run()
     {
-        currentEffect=13;
+        //currentEffect=13;
             Serial.printf("Current effect %s(%d)\r\n", effects[currentEffect].effectName, currentEffect);
 
         EffectFunction* effectFunction = effects[currentEffect].effectFunction;

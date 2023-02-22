@@ -8,10 +8,10 @@
 #include "BeatInfo.h"
 #include "settings.h"
 
-
 #include "configuration.h"
 
 #include "effects.h"
+#include "MQTTStreamFarben.h"
 #include "mqtt.h"
 // #include "artnet.h"
 
@@ -20,10 +20,11 @@
 CRGBArray<NUM_LEDS> leds;
 
 BeatInfo beatInfo;
+MQTTStreamFarben StreamFarbe;
 
 void setup()
 {
-
+  StreamFarbe.setStreamColor(CRGB::Blue);
   Serial.begin(115200);
 
   config.setupWifiPortal("PandoriaLED");
@@ -56,10 +57,10 @@ void loop()
   e131sync.loop();
 #endif
 
- /*  EVERY_N_SECONDS(30)
-  {
-    effectsRunner.nextEffect();
-  }; */
+  /*  EVERY_N_SECONDS(30)
+   {
+     effectsRunner.nextEffect();
+   }; */
 
   // debug only :)
   // EVERY_N_SECONDS(10)

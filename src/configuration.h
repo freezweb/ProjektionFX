@@ -2,9 +2,8 @@
 #define _PROJECTIONFX_CONFIGURATION_H__
 
 #ifndef CONFIG_ESP32_PHY_MAX_TX_POWER
-    #define CONFIG_ESP32_PHY_MAX_TX_POWER CONFIG_ESP_PHY_MAX_WIFI_TX_POWER
+#define CONFIG_ESP32_PHY_MAX_TX_POWER CONFIG_ESP_PHY_MAX_WIFI_TX_POWER
 #endif
-
 
 #include <FS.h>
 #include "settings.h"
@@ -14,7 +13,6 @@
 #ifdef ESP32
 #include <SPIFFS.h>
 #endif
-
 
 WiFiManager wifiManager;
 
@@ -34,6 +32,8 @@ public:
         wifiManager.setDebugOutput(false);
         wifiManager.setConfigPortalTimeout(300);
 
+
+
         WiFiManagerParameter custom_mqtt_server("server", "mqtt server", mqttHost.c_str(), 40);
         wifiManager.addParameter(&custom_mqtt_server);
 
@@ -46,7 +46,7 @@ public:
         wifiManager.setSaveConfigCallback(configCallback);
 
         Serial.print("Attempting WiFi connection... ");
-        
+
         wifiManager.setHostname(hostName.c_str());
         bool res = wifiManager.autoConnect(hostName.c_str(), NULL);
         if (!res)
@@ -58,9 +58,9 @@ public:
         else
         {
             Serial.printf("connected, IP: %s\r\n", WiFi.localIP().toString().c_str());
-        } 
+        }
 
-
+ 
         mqttHost = custom_mqtt_server.getValue();
         mqttUser = custom_mqtt_user.getValue();
         mqttPassword = custom_mqtt_password.getValue();
@@ -80,6 +80,7 @@ public:
 
         Serial.println("Configuration completed!");
     }
+
     const char *getMQTTHost() { return mqttHost.c_str(); };
     const char *getMQTTUser() { return mqttUser.c_str(); };
     const char *getMQTTPassword() { return mqttPassword.c_str(); };
@@ -90,15 +91,15 @@ public:
 
     void connectionGuard()
     {
-        if(!WiFi.isConnected())
+        if (!WiFi.isConnected())
         {
             Serial.print("\r\nAttempting WiFi reconnect");
             WiFi.begin();
             static uint8_t tries = 120;
 
-            while(!WiFi.isConnected())
+            while (!WiFi.isConnected())
             {
-                if(!tries--)
+                if (!tries--)
                 {
                     Serial.println("\r\nfailed! -> Reset");
                     delay(2500);
@@ -108,11 +109,12 @@ public:
                 delay(1000);
             }
             Serial.println(" connected.");
-        }       
+        }
     }
 
 private:
     bool shouldSave = false;
+
     String mqttHost = MQTT_HOST;
     String mqttUser = MQTT_USER;
     String mqttPassword = MQTT_PASSWORD;
@@ -126,6 +128,7 @@ private:
         DynamicJsonBuffer jsonBuffer;
         JsonObject &json = jsonBuffer.createObject();
 #endif
+
         json["mqtt_host"] = mqttHost;
         json["mqtt_user"] = mqttUser;
         json["mqtt_password"] = mqttPassword;
@@ -185,15 +188,18 @@ private:
                     {
 #endif
                         // Serial.println("\r\nparsed json");
+               
                         String host = json["mqtt_host"];
                         String user = json["mqtt_user"];
                         String password = json["mqtt_password"];
 
+                  
                         mqttHost = host;
                         mqttUser = user;
                         mqttPassword = password;
 
                         Serial.printf("Config Restored\r\n");
+               
                         Serial.printf(" mqtt_host:\t %s\r\n", mqttHost.c_str());
                         Serial.printf(" mqtt_user:\t %s\r\n", mqttUser.c_str());
                         Serial.printf(" mqtt_password:\t <HIDDEN>\r\n");

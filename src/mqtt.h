@@ -9,10 +9,13 @@
 
 #include <BeatInfo.h>
 
+#include "MQTTStreamFarben.h"
+
 #include "effect.h"
 #include "effect_fullcolor.h"
 
 extern BeatInfo beatInfo;
+extern MQTTStreamFarben StreamFarbe;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -20,8 +23,10 @@ PubSubClient client(espClient);
 const char *mqttUser;
 const char *mqttPassword;
 
+
 void callback(char *topic, byte *payload, unsigned int length);
 void reconnect();
+
 
 void reconnect()
 {
@@ -37,8 +42,9 @@ void reconnect()
     {
       Serial.println("connected");
       client.subscribe("projektiontv/stream/dj/songinfo/bpm");
-      client.subscribe("stream/uhr/farbe/seconds");
+      client.subscribe("stream/ledstripes/color");
       client.subscribe("stream/ledstripes/effekt");
+      StreamFarbe.setStreamColor(CRGB::Green);
     }
     else
     {
@@ -70,17 +76,24 @@ void callback(char *topic, byte *payload, unsigned int length)
   }
   if (strcmp(topic, "stream/ledstripes/effekt") == 0)
   {
-    // effectsRunner.setEffect((int)payload);
+
+    char str_array[messageTemp.length()];
+    messageTemp.toCharArray(str_array, messageTemp.length());
+
+    Serial.println(strtol(str_array, NULL, 16));
+    Serial.print("Change Effect: ");
+    Serial.println(messageTemp.toInt());
+    effectsRunner.setEffect(messageTemp.toInt());
   }
 
-  if (strcmp(topic, "stream/uhr/farbe/seconds") == 0)
+  if (strcmp(topic, "stream/ledstripes/color") == 0)
   {
     char str_array[messageTemp.length()];
     messageTemp.toCharArray(str_array, messageTemp.length());
 
     Serial.println(strtol(str_array, NULL, 16));
 
-    EffectFullcolor::setStreamColor(strtol(str_array, NULL, 16));
+    StreamFarbe.setStreamColor(strtol(str_array, NULL, 16));
   }
 }
 
